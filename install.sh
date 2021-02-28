@@ -13,6 +13,7 @@ yum install -y http://vault.centos.org/centos/6/os/x86_64/Packages/compat-readli
 yum -y install postgresql-libs-8.2.23-1PGDG.rhel5
 yum -y install postgresql-server-8.2.23-1PGDG.rhel5
 sed -i -e 's/.\${PGPORT}//g' /etc/init.d/postgresql
+service postgresql initdb
 sed -i -e "s|#listen_addresses = 'localhost'|listen_addresses = '*'|g" \
 -e 's|max_connections = 100|max_connections = 1024|g' \
 -e 's|shared_buffers = 32MB|shared_buffers = 256MB|g' \
@@ -22,5 +23,3 @@ sed -i -e "s|#listen_addresses = 'localhost'|listen_addresses = '*'|g" \
 -e 's|max_fsm_pages = 204800|max_fsm_pages = 1048576|g' \
 -e 's|#max_fsm_relations = 1000|max_fsm_relations = 32768|g' \
 /var/lib/pgsql/data/postgresql.conf
-service postgresql initdb
-
